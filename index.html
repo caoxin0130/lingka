@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#f5f6fa">
+  <title>你好，很高兴认识你</title>
+  <style>
+    :root {
+      --bg: #f5f6fa;
+      --card: rgba(255,255,255,.82);
+      --text: #202333;
+      --muted: #74798b;
+      --line: rgba(31,38,63,.09);
+      --accent: #625bf6;
+      --accent-soft: #efeeff;
+      --shadow: 0 24px 70px rgba(35,39,75,.09);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0; min-height: 100vh; padding: 28px 18px;
+      color: var(--text);
+      background:
+        radial-gradient(ellipse at 10% 5%, rgba(120,111,255,.12), transparent 35%),
+        radial-gradient(ellipse at 95% 85%, rgba(103,199,210,.15), transparent 30%),
+        var(--bg);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
+        "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    }
+    a { color: inherit; text-decoration: none; }
+    .wrap { width: min(100%, 940px); margin: 0 auto; }
+    .topbar { display:flex; align-items:center; justify-content:space-between; margin-bottom:28px; }
+    .brand { display:flex; align-items:center; gap:10px; font-weight:750; letter-spacing:.2px; }
+    .brand-mark {
+      display:grid; place-items:center; width:35px; height:35px; border-radius:12px;
+      color:white; background:linear-gradient(135deg,#7770ff,#4e48d9);
+      box-shadow:0 8px 18px rgba(98,91,246,.25);
+    }
+    .availability { display:flex; align-items:center; gap:8px; color:var(--muted); font-size:13px; }
+    .dot { width:8px; height:8px; background:#36bd85; border-radius:50%; box-shadow:0 0 0 4px rgba(54,189,133,.12); }
+    .layout { display:grid; grid-template-columns: 1.05fr .95fr; gap:20px; }
+    .card {
+      background:var(--card); border:1px solid rgba(255,255,255,.9); border-radius:27px;
+      box-shadow:var(--shadow); backdrop-filter:blur(16px);
+    }
+    .hero { padding:34px; position:relative; overflow:hidden; }
+    .hero:after {
+      content:""; position:absolute; width:230px; height:230px; right:-110px; top:-110px;
+      border-radius:50%; border:1px solid rgba(98,91,246,.13);
+      box-shadow:0 0 0 24px rgba(98,91,246,.025),0 0 0 48px rgba(98,91,246,.02);
+      pointer-events:none;
+    }
+    .avatar-wrap { width:104px; height:104px; padding:4px; border-radius:31px;
+      background:linear-gradient(135deg,#8c85ff,#bce9e7); margin-bottom:25px; }
+    .avatar { width:100%; height:100%; display:block; border-radius:27px; object-fit:cover; background:#e8e9f4; }
+    .eyebrow { color:var(--accent); font-size:12px; font-weight:800; letter-spacing:2px; text-transform:uppercase; }
+    h1 { margin:10px 0 8px; font-size:clamp(30px,5vw,43px); line-height:1.2; letter-spacing:-1.5px; }
+    .subtitle { margin:0; color:var(--muted); font-size:15px; line-height:1.8; }
+    .intro { margin:24px 0; color:#4e5367; line-height:1.95; font-size:14px; }
+    .tags { display:flex; flex-wrap:wrap; gap:8px; }
+    .tag { padding:8px 12px; border-radius:999px; color:#5752c9; background:var(--accent-soft); font-size:12px; font-weight:650; }
+    .right { display:flex; flex-direction:column; gap:20px; }
+    .section { padding:26px; }
+    .section-head { display:flex; align-items:center; justify-content:space-between; gap:12px; margin-bottom:18px; }
+    h2 { font-size:16px; margin:0; letter-spacing:.1px; }
+    .section-note { color:var(--muted); font-size:12px; }
+    .contact-list { display:flex; flex-direction:column; gap:10px; }
+    .contact {
+      display:flex; align-items:center; gap:12px; padding:12px;
+      border:1px solid var(--line); border-radius:16px; background:rgba(255,255,255,.56);
+      min-width:0;
+    }
+    .contact-icon { width:39px; height:39px; flex:0 0 39px; display:grid; place-items:center;
+      border-radius:13px; background:#f0efff; color:#625bf6; font-size:17px; }
+    .contact-main { min-width:0; flex:1; }
+    .contact-label { display:block; color:var(--muted); font-size:11px; margin-bottom:4px; }
+    .contact-value { display:block; font-size:13px; font-weight:700; overflow-wrap:anywhere; }
+    .copy {
+      border:0; border-radius:11px; padding:9px 11px; background:#f0efff; color:#5750db;
+      font-size:12px; font-weight:750; cursor:pointer; transition:.2s; white-space:nowrap;
+    }
+    .copy:hover { background:#e3e1ff; transform:translateY(-1px); }
+    .copy:focus-visible, a:focus-visible { outline:3px solid #aaa5ff; outline-offset:3px; }
+    .copy-all { display:flex; align-items:center; gap:7px; border:0; cursor:pointer; padding:9px 12px;
+      border-radius:12px; background:var(--accent); color:white; font-weight:700; font-size:12px; }
+    .copy-all:hover { filter:brightness(1.06); }
+    .quote { padding:24px 26px; background:linear-gradient(135deg,#625bf6,#817aff); color:white; }
+    .quote-mark { font-size:28px; line-height:1; opacity:.75; }
+    .quote p { margin:8px 0 0; font-size:14px; line-height:1.9; color:rgba(255,255,255,.94); }
+    .footer { display:flex; justify-content:space-between; gap:12px; color:#9296a6; font-size:12px; padding:22px 4px 0; }
+    .toast { position:fixed; left:50%; bottom:28px; transform:translate(-50%,12px); opacity:0; pointer-events:none;
+      padding:12px 17px; border-radius:13px; color:white; background:#25283a; font-size:13px;
+      box-shadow:0 10px 35px rgba(0,0,0,.18); transition:.22s; z-index:10; }
+    .toast.show { opacity:1; transform:translate(-50%,0); }
+    @media (max-width:720px) {
+      body { padding:18px 13px; }
+      .topbar { margin-bottom:18px; }
+      .layout { grid-template-columns:1fr; gap:15px; }
+      .hero { padding:27px 24px; }
+      .right { gap:15px; }
+      .section { padding:22px 19px; }
+      .footer { flex-direction:column; align-items:center; text-align:center; }
+    }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <header class="topbar">
+      <a class="brand" href="#" aria-label="个人主页首页">
+        <span class="brand-mark">✦</span><span>MY PROFILE</span>
+      </a>
+      <div class="availability"><span class="dot"></span>欢迎认识我</div>
+    </header>
+
+    <div class="layout">
+      <section class="card hero">
+        <div class="avatar-wrap">
+          <!-- 将下面的图片链接替换成你自己的头像图片链接 -->
+          <img class="avatar" src="https://origin.picgo.net/2026/07/06/origind1a3f792e8ccd62f.png" alt="个人头像">
+        </div>
+        <div class="eyebrow">HELLO, WORLD</div>
+        <!-- 修改这里：你的名字 -->
+        <h1>你好，我是<span style="color:var(--accent)">零卡</span></h1>
+        <!-- 修改这里：你的身份 / 个性签名 -->
+        <p class="subtitle">是缘总会圆</p>
+        <p class="intro">
+          妈妈说有缘分就做一家人 没缘分那就当朋友 好好与人讲话 不可因自己情绪讲难听的话。
+        </p>
+        <div class="tags">
+          <span class="tag">🎮 游戏</span>
+          <span class="tag">✨ 电脑DIY</span>
+          <span class="tag">🤝 认识新朋友</span>
+        </div>
+      </section>
+
+      <div class="right">
+        <section class="card section">
+          <div class="section-head">
+            <h2>联系我</h2>
+            <button class="copy-all" type="button" onclick="copyAll()">▣ 复制全部</button>
+          </div>
+          <div class="contact-list">
+            <!-- 把下面的联系方式改成你自己的；不想展示某项可以删除对应的 contact 块 -->
+            <div class="contact">
+              <div class="contact-icon">Q</div>
+              <div class="contact-main"><span class="contact-label">QQ</span><span class="contact-value" data-copy="170820665">170820665</span></div>
+              <button class="copy" type="button" onclick="copyText('170820665')">复制</button>
+            </div>
+            <div class="contact">
+              <div class="contact-icon">飞</div>
+              <div class="contact-main"><span class="contact-label">飞机</span><span class="contact-value" data-copy="CECXCX">CECXCX</span></div>
+              <button class="copy" type="button" onclick="copyText('CECXCX')">复制</button>
+            </div>
+            <div class="contact">
+              <div class="contact-icon">＠</div>
+              <div class="contact-main"><span class="contact-label">邮箱</span><span class="contact-value" data-copy="170820665@qq.com">170820665@qq.com</span></div>
+              <button class="copy" type="button" onclick="copyText('170820665@qq.com')">复制</button>
+            </div>
+            <div class="contact">
+              <div class="contact-icon">♪</div>
+              <div class="contact-main"><span class="contact-label">抖音</span><span class="contact-value" data-copy="QQPF">QQPF</span></div>
+              <button class="copy" type="button" onclick="copyText('QQPF')">复制</button>
+            </div>
+          </div>
+        </section>
+
+        <section class="card quote">
+          <div class="quote-mark">“</div>
+          <p>把喜欢的事做好，把重要的人放在心上。<br>慢慢来，也会有好事发生。</p>
+        </section>
+
+        <section class="card section">
+          <div class="section-head"><h2>想说的话</h2><span class="section-note">堆堆</span></div>
+          <p class="intro" style="margin:0">
+            这是我的线上名片。你可以通过上面的联系方式找到我，也可以把这个页面分享给朋友。
+          </p>
+        </section>
+      </div>
+    </div>
+
+    <footer class="footer">
+      <span>© <span id="year"></span> 零卡</span>
+    </footer>
+  </main>
+  <div class="toast" id="toast" role="status" aria-live="polite">已复制</div>
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+    let toastTimer;
+    function showToast(message) {
+      const toast = document.getElementById('toast');
+      toast.textContent = message;
+      toast.classList.add('show');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => toast.classList.remove('show'), 1800);
+    }
+    async function copyText(value) {
+      try {
+        await navigator.clipboard.writeText(value);
+        showToast('已复制：' + value);
+      } catch (e) {
+        const field = document.createElement('textarea');
+        field.value = value;
+        field.style.position = 'fixed';
+        field.style.opacity = '0';
+        document.body.appendChild(field);
+        field.select();
+        const ok = document.execCommand('copy');
+        field.remove();
+        showToast(ok ? '复制成功' : '复制失败，请手动选择复制');
+      }
+    }
+    async function copyAll() {
+      const values = [...document.querySelectorAll('[data-copy]')].map(el => {
+        const label = el.closest('.contact').querySelector('.contact-label').textContent;
+        return label + '：' + el.dataset.copy;
+      });
+      await copyText(values.join('\\'));
+    }
+  </script>
+</body>
+</html>
